@@ -162,7 +162,7 @@ fclean: clean               # Fully clean up by removing executables and build d
 	@printf "${YELLOW}${BOLD}${CLEAN} Removing executable, libft.a and build files...${RESET}\n"
 	@${RM} ${NAME_SERVER} ${NAME_CLIENT}
 	@${RM} ${BUILD_PATH}
-#@${RM} ${LIBFT_PATH}
+	@${RM} ${LIBFT_PATH}
 	@printf "${GREEN}${BOLD}${CHECK} All files cleaned!${RESET}\n"
 
 re: fclean all          # Rebuild everything from scratch

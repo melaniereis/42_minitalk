@@ -3,26 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: meferraz <meferraz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:59:37 by meferraz          #+#    #+#             */
-/*   Updated: 2024/12/27 17:32:44 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:42:18 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-static void	ft_sighandler(int sig);
-static void	ft_send_msg(pid_t pid, char *msg);
-static void	ft_send_byte(pid_t pid, unsigned char byte);
-static int	ft_init_client(int argc, char **argv);
+static void		ft_signal_handler(int sig);
+static void		ft_send_message(pid_t pid, char *msg);
+static pid_t	ft_init_client(int argc, char **argv);
+static void		ft_send_byte(pid_t pid, unsigned char byte);
 
-/**
- * @brief Main function: Initializes the client and sends the message
- * @param argc: Argument count
- * @param argv: Argument vector
- * @return: 0 on success
- */
 int	main(int argc, char **argv)
 {
 	pid_t	server_pid;
@@ -30,19 +24,14 @@ int	main(int argc, char **argv)
 	server_pid = ft_init_client(argc, argv);
 	ft_printf("%sSending message to Server (PID: %d)%s\n",
 		GREEN, server_pid, RESET);
-	ft_send_msg(server_pid, argv[2]);
+	signal(SIGINT, ft_signal_handler);
+	ft_send_message(server_pid, argv[2]);
 	while (1)
 		pause();
 	return (0);
 }
 
-/**
- * @brief Initializes the client, checks arguments and sets up signal handlers
- * @param argc: Argument count
- * @param argv: Argument vector
- * @return: Server PID
- */
-static int	ft_init_client(int argc, char **argv)
+static pid_t	ft_init_client(int argc, char **argv)
 {
 	struct sigaction	sa;
 	pid_t				server_pid;
@@ -59,7 +48,7 @@ static int	ft_init_client(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = ft_sighandler;
+	sa.sa_handler = ft_signal_handler;
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGUSR1, &sa, NULL) < 0 || sigaction(SIGUSR2, &sa, NULL) < 0)
 	{
@@ -69,11 +58,7 @@ static int	ft_init_client(int argc, char **argv)
 	return (server_pid);
 }
 
-/**
- * @brief Signal handler for client
- * @param sig: Received signal
- */
-static void	ft_sighandler(int sig)
+static void	ft_signal_handler(int sig)
 {
 	if (sig == SIGUSR1)
 		ft_printf("%s* . * . *%s\n", BLUE, RESET);
@@ -82,14 +67,14 @@ static void	ft_sighandler(int sig)
 		ft_printf("%sMessage sent successfully!%s\n", GREEN, RESET);
 		exit(0);
 	}
+	else if (sig == SIGINT)
+	{
+		ft_printf("\n%sClient shutting down...%s\n", RED, RESET);
+		exit(0);
+	}
 }
 
-/**
- * @brief Sends a message to the server
- * @param pid: Server PID
- * @param msg: Message to send
- */
-static void	ft_send_msg(pid_t pid, char *msg)
+static void	ft_send_message(pid_t pid, char *msg)
 {
 	size_t	len;
 	size_t	i;
@@ -107,11 +92,6 @@ static void	ft_send_msg(pid_t pid, char *msg)
 	}
 }
 
-/**
- * @brief Sends a single byte to the server
- * @param pid: Server PID
- * @param byte: Byte to send
- */
 static void	ft_send_byte(pid_t pid, unsigned char byte)
 {
 	int	i;

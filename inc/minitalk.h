@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: meferraz <meferraz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:59:27 by meferraz          #+#    #+#             */
-/*   Updated: 2024/12/27 17:24:27 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:31:05 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 /*
 ** Constants
 */
-# define PAUSE 100
+# define PAUSE 1000
 
 /*
 ** Color Codes for Terminal Output
@@ -58,6 +58,5 @@ typedef struct s_server_state
 	int				receiving_len;
 	size_t			len_bytes_received;
 }	t_server_state;
-
 
 #endif
