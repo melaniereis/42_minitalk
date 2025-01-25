@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:59:37 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/25 10:54:49 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:29:05 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ static void	ft_send_message(pid_t pid, char *msg)
 	len = ft_strlen(msg);
 	i = 0;
 	ft_send_byte(pid, (unsigned char)len);
-	usleep(PAUSE * 100);
+	usleep(PAUSE);
 	while (i < len)
 	{
 		ft_send_byte(pid, msg[i]);
-		usleep(PAUSE * 100);
 		i++;
 	}
 	ft_send_byte(pid, '\0');
