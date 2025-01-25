@@ -47,7 +47,6 @@ static void	ft_init_server(void)
 static void	ft_signal_handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
-	
 	g_state.current_byte <<= 1;
 	if (sig == SIGUSR2)
 		g_state.current_byte |= 1;
