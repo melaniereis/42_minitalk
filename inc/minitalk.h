@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meferraz <meferraz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:59:27 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/11 14:31:05 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:39:51 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 /*
 ** Constants
 */
-# define PAUSE 1000
+# define PAUSE 100
 
 /*
 ** Color Codes for Terminal Output
@@ -47,6 +47,14 @@
  * 
  * This structure holds the current state of the server,
  * including the message being received and processing details.
+ * 
+ * - current_byte: The byte currently being assembled from received bits.
+ * - bit_count: The number of bits received for the current byte.
+ * - message: The dynamically allocated buffer for the received message.
+ * - message_len: The length of the message being received.
+ * - bytes_received: The number of bytes received so far.
+ * - receiving_len: A flag indicating whether the server is currently receiving the message length or the message itself.
+ * - len_bytes_received: The number of bytes received for the message length.
  */
 typedef struct s_server_state
 {
@@ -58,5 +66,6 @@ typedef struct s_server_state
 	int				receiving_len;
 	size_t			len_bytes_received;
 }	t_server_state;
+
 
 #endif
