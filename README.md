@@ -2,6 +2,8 @@
 
 <div align="center">
 
+![Funny Communication GIF]([https://media.tenor.com/yF3Zothe3f8AAAAM/food-fight-food-war.gif](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGl3bWx4cTZoMHY4d2MzbmtzZTEyMGszeHFwOWNxcWg5YnNydTdtbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7bucZfOGGG4gWlPy/giphy.gif))
+
 Welcome to **Minitalk** - An implementation of the Minitalk project from 42 School, enhanced with Unicode support and multi-client functionality.
 
 ![Project Status](https://img.shields.io/badge/Project-Minitalk-blue?style=for-the-badge&logo=42)
